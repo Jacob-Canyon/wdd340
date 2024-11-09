@@ -4,3 +4,251 @@
 *:after {
   box-sizing: border-box;
 }
+
+:root{
+  --font-body: noto-sans, "Arial Narrow Bold", sans-serif;
+  --font-headline: oswald, arial, sans-serif;
+}
+
+#top-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 100%;
+  padding-top: 2rem;
+  padding-left: 3%;
+}
+
+#top-header a{
+  text-decoration: none;
+}
+
+
+header{
+  width: 95%;
+}
+
+nav {
+  background-color: black;
+  color: white;
+  display: flex;
+  flex-direction: row;
+  width: 95%;
+  font-family: var(--font-headline);
+  margin: auto;
+}
+
+nav ul{
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+nav li{
+  display: inline;
+  margin: auto;
+}
+
+h1{
+  font-family: var(--font-body);
+  font-size: 3rem;
+  padding-left: 2rem;
+  margin-top: 2rem;
+}
+
+h2{
+  font-family: var(--font-headline);
+  font-size: larger;
+}
+
+.siteName {
+  font-size: 3rem;
+  font-family: var(--font-headline);
+  margin-bottom: 2rem;
+  font-weight: bolder;
+}
+
+.siteName a:visited{
+  color: black;
+}
+
+h3{
+  font-family: var(--font-headline);
+}
+
+body {
+  background-image: url(../images/site/checkerboard.jpg);
+  height: auto;
+  width: 100%;
+}
+
+a {
+  font-family: var(--font-body);
+  text-decoration: none;
+}
+
+li{
+  font-family: var(--font-body);
+  margin-top: 1rem;
+}
+
+#wrapper {
+  background-color: white;
+  width: 80%;
+  height: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 6px;
+  border: 4px solid lightblue;
+}
+
+.float {
+  grid-column: 1/2;
+  grid-row: 1;
+  z-index: 2;
+  text-align: center;
+  background: rgba(212, 228, 212, 0.3);
+  margin-left: 20%;
+  margin-right: 20%;
+
+}
+
+.float p{
+  font-family: var(--font-body);
+}
+
+.hero {
+  grid-column: 1/3;
+  grid-row: 1;
+}
+
+.mainGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-auto-rows: auto;
+  margin: 2rem; 
+}
+
+.upgradesGrid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  margin: 1rem;
+  gap: 1rem;
+}
+
+.imgBox {
+  padding-top: 1rem;
+  border: 4px solid black;
+  background-color: lightblue;
+  height: 90%;
+  width: 80%;
+}
+
+.imgBox img{
+  height: auto;
+  width: auto;
+}
+
+.upgradesImg a{
+  font-family: var(--font-body);
+  text-align: center;
+}
+
+.imgLink {
+  vertical-align: bottom;
+}
+
+.reviews ul{
+  padding: 1rem;
+  font-family: var(--font-body);
+  font-size: large;
+}
+
+.reviews li{
+  margin-bottom: 2rem;
+}
+  
+
+img{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+footer{
+  margin-top: 2rem;
+  padding-top: 3rem;
+  padding-left: 1rem;
+  font-family: var(--font-headline);
+}
+
+
+/*******************moblie***********/
+
+@media only screen and (max-width: 968px) {
+  body {
+    background-image: none;
+    margin: 0;
+  }
+
+  #wrapper {
+    width: 100%;
+  }
+
+  .mainGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-auto-rows: auto;
+  }
+
+  .float{
+    grid-column: 1/2;
+    grid-row: 1;
+    margin-left: 0;
+    width: 100%;
+    height: auto;
+  }
+
+  .hero{
+    width: 100%;
+    height: auto;
+    grid-column: 1/3;
+    grid-row: 1;
+  }
+
+  .reviews{
+    grid-column: 1/3;
+    grid-row: 2;
+    list-style: inside;
+  }
+
+  .reviews h3{
+    grid-column: 1/3;
+    grid-row: 3;
+    display: block;
+    width: 100%;
+  }
+
+  .reviews ul {
+    width: 100%;
+  }
+
+  .upgradesGrid{
+    grid-column: 1/3;
+    grid-row: 4;
+  }
+
+  .upgrades{
+    grid-column: 1/3;
+    width: 100%;
+  }
+
+  .wrapper {
+    height: 90%;
+    width: 90%;
+  }
+
+  }
