@@ -236,6 +236,7 @@ VALUES (
     );
 --Modify Hummer description
 UPDATE inventory
+WHERE inv_id = 10
 SET inv_description = REPLACE(
         inv_description,
         'the small interiors',

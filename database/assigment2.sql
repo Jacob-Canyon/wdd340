@@ -26,6 +26,7 @@ SELECT inv_make,
     inv_model,
     classification_name
 FROM inventory
+WHERE inv_id = 10
     INNER JOIN classification ON inventory.classification_id = classification.classification_id
 WHERE inventory.classification_id = 2 -- Correct image address
 UPDATE inventory
