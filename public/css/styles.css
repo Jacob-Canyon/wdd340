@@ -44,6 +44,12 @@ nav ul{
   width: 100%;
 }
 
+nav a {
+  color: white;
+
+}
+
+
 nav li{
   display: inline;
   margin: auto;
