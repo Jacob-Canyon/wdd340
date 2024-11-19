@@ -8,14 +8,13 @@ Util.getNav = async function (req, res, next) {
     let data = await invModel.getClassifications()
     let list = "<ul>"
     list += '<li><a href="/" title="Home page">Home</a></li>'
-    data.rows.forEach ((row) => {
+    data.rows.forEach((row) => {
         list += "<li>"
-        list +=
-            '<a href="/inv/type/' +
+        list +='<a href="/inv/type/' +
             row.classification_id +
             '"title="See our inventory of ' +
             row.classiticaiton_name +
-            ' vehicles>' +
+            ' vehicles">' +
             row.classification_name +
             "</a>"
             list += "</li>"
