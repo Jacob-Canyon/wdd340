@@ -252,3 +252,5 @@ WHERE inventory.classification_id = 2;
 -- Correct image address
 UPDATE inventory
 SET inv_image = REPLACE(inv_image, '/images/', '/images/vehicles/');
+UPDATE inventory
+SET inv_thumbnail = REPLACE(inv_image, '/images/', '/images/vehicles/');

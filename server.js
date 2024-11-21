@@ -31,8 +31,12 @@ app.set("layout", "./layouts/layout")
 
 app.use(static)
 app.get("/", baseController.buildHome)
+//inventory route
 app.use("/inv", inventoryRoute)
+//details route
+app.use("/inv/detail", inventoryRoute)
 app.get("/", utilities.handleErrors(baseController.buildHome))
+
 //File Not Found Route - must be last
 app.use(async(req, res, next) => {
   next({status: 404, message: 'Sorry, we appear to have lost that page.'})

@@ -191,6 +191,22 @@ footer{
   font-family: var(--font-headline);
 }
 
+/********************classification page********************/
+
+#inv-display{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+#inv-display li{
+  list-style: none;
+  color: #000;
+}
+
+.namePrice {
+  text-align: center;
+}
+
 
 /*******************moblie***********/
 
@@ -255,6 +271,18 @@ footer{
   .wrapper {
     height: 90%;
     width: 90%;
+  }
+
+  #inv-display{
+    margin: 0 auto;
+    text-align: center;
+    display: block;
+  }
+  
+  #inv-display li{
+    display: inline-block;
+    vertical-align: top;
+    list-style: none;
   }
 
   }
