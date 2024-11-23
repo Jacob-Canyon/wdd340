@@ -57,7 +57,7 @@ nav li{
 
 h1{
   font-family: var(--font-body);
-  font-size: 3rem;
+  font-size: 1.5rem;
   padding-left: 2rem;
   margin-top: 2rem;
 }
@@ -68,7 +68,7 @@ h2{
 }
 
 .siteName {
-  font-size: 3rem;
+  font-size: 2rem;
   font-family: var(--font-headline);
   margin-bottom: 2rem;
   font-weight: bolder;
@@ -184,6 +184,7 @@ img{
 }
 
 
+
 footer{
   margin-top: 2rem;
   padding-top: 3rem;
@@ -196,6 +197,14 @@ footer{
 #inv-display{
   display: grid;
   grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin: 0;
+  width: 100%;
+}
+
+#inv-display a{
+  height: 100%;
+  width: auto;
 }
 
 #inv-display li{
@@ -205,12 +214,35 @@ footer{
 
 .namePrice {
   text-align: center;
+  vertical-align: bottom;
+}
+/*******************detail page****************/
+
+#detail-display{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+#detail-display ul{
+  text-align: left;
+  font-family: var(--font-body);
+  padding: 1rem;
+}
+
+#detail-display li{
+  font-size: larger;
 }
 
 
 /*******************moblie***********/
 
 @media only screen and (max-width: 968px) {
+
+h1{
+  text-align: center;
+}
   body {
     background-image: none;
     margin: 0;
@@ -284,5 +316,22 @@ footer{
     vertical-align: top;
     list-style: none;
   }
+
+  /*************detail************/
+
+  #detail-display{
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  #detail-display ul{
+    text-align: left;
+  }
+
+  #detail-display li{
+    list-style: none;
+  }
+
+
 
   }
