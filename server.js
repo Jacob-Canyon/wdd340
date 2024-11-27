@@ -12,10 +12,38 @@ const expressLayouts = require("express-ejs-layouts")
 const env = require("dotenv").config()
 const app = express()
 const static = require("./routes/static")
+const session = require("express-session")
+const pool = require('./database/')
 const baseController = require("./controllers/baseController")
 const utilities = require("./utilities/")
 const inventoryRoute = require("./routes/inventoryRoute")
+const accountRoute = require("./routes/accountRoute")
 const errorController = require("./controllers/errorController")
+const bodyParser = require("body-parser")
+
+/****************************
+ * Middleware
+ ****************************/
+app.use(session({
+  store: new (require('connect-pg-simple')(session))({
+    createTableIfMissing: true,
+    pool,
+  }),
+  secret: process.env.SESSION_SECRET,
+  resave: true,
+  saveUninitialized: true,
+  name: 'sessionId',
+}))
+app.use(bodyParser.json())
+//for parsing application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({extended: true}))
+
+//Express Message Middleware
+app.use(require('connect-flash')())
+app.use(function(req, res, next){
+  res.locals.messages = require('express-messages')(req, res)
+  next()
+})
 
 /* ***********************
  *View Engine and Templates
@@ -36,6 +64,9 @@ app.get("/", utilities.handleErrors(baseController.buildHome))
 app.use("/inv", inventoryRoute)
 //details route
 app.use("/inv/detail", inventoryRoute)
+//account route
+app.use("/account", accountRoute)
+app.use("/account/register", accountRoute)
 //route for error link
 app.use("/error", utilities.handleErrors(errorController.buildHome))
 //error routes
