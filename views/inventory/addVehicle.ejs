@@ -1,0 +1,38 @@
+<% if (title){ %>
+    <h1><%= title %></h1>
+    <%} else {
+        res.redifect('/')
+    } %>
+    <% if (errors) { %>
+        <ul class="notice">
+            <% errors.array().forEach(error => { %>
+                <li><%= error.msg %></li>
+            <%  }) %>
+        </ul>
+    <%} %>
+    <%- messages() %>
+    <div class="formDiv">
+        <form>
+            <label for="classification_id">Classification</label>
+            <select id="classification_id" name="classification_id">
+            </select>
+            <label for="inv_make">Make</label>
+            <input type="text" id="invMake" name="inv_make" placeholder="Min of 3 characters" required>
+            <label for="inv_make">Model</label>
+            <input type="text" id="invModel" name="inv_model" placeholder="Min of 3 characters" required>
+            <label for="inv_description">Description</label>
+            <textarea id="invDescription" name="inv_description" rows="10"  cols="50"></textarea>
+            <label for="inv_image">Image Path</label>
+            <input type="text" id="invImage" name="inv_image" value="/images/vehicles/no-image.png" required>
+            <label for="inv_thumbnail">Image Thumbnail</label>
+            <input type="text" id="invThumbnail" name="inv_thumbnail" value="/images/vehicles/no-image.png">
+            <label for="inv_price">Price</label>
+            <input type="text" id="invPrice" name="inv_price" required>
+            <label for="inv_year">Year</label>
+            <input type="text" id="invYear" name="inv_year" required>
+            <label for="inv_miles">Miles</label>
+            <input type="text" id="invMiles" name="inv_miles" required>
+            <label for="inv_color">Color</label>
+            <input type="text" id="invColor" name="inv_color" required>
+        </form> 
+    </div>
