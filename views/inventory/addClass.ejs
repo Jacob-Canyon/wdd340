@@ -13,10 +13,10 @@
     <%- messages() %>
 
     <div class="formDiv">
-        <form action="/inv/addClass" method="post">
+        <form action="/inv/addClass" method="post"><br>
             <label>Classification Name</label><br>
-            <span>Name must be alphabetical characters only</span>
-            <input type="text" id="classificationName" name="classification_name" required pattern="[A-Za-z]"><br>
+            <span>Name must be alphabetical characters only</span><br>
+            <input type="text" id="classificationName" name="classification_name" required pattern="^[A-Za-z]+"><br>
             <input type="submit" value="Add Class">
         </form>
 

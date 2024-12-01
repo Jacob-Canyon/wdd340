@@ -12,27 +12,26 @@
     <%} %>
     <%- messages() %>
     <div class="formDiv">
-        <form>
-            <label for="classification_id">Classification</label>
-            <select id="classification_id" name="classification_id">
-            </select>
-            <label for="inv_make">Make</label>
-            <input type="text" id="invMake" name="inv_make" placeholder="Min of 3 characters" required>
-            <label for="inv_make">Model</label>
-            <input type="text" id="invModel" name="inv_model" placeholder="Min of 3 characters" required>
-            <label for="inv_description">Description</label>
-            <textarea id="invDescription" name="inv_description" rows="10"  cols="50"></textarea>
-            <label for="inv_image">Image Path</label>
-            <input type="text" id="invImage" name="inv_image" value="/images/vehicles/no-image.png" required>
-            <label for="inv_thumbnail">Image Thumbnail</label>
-            <input type="text" id="invThumbnail" name="inv_thumbnail" value="/images/vehicles/no-image.png">
-            <label for="inv_price">Price</label>
-            <input type="text" id="invPrice" name="inv_price" required>
-            <label for="inv_year">Year</label>
-            <input type="text" id="invYear" name="inv_year" required>
-            <label for="inv_miles">Miles</label>
-            <input type="text" id="invMiles" name="inv_miles" required>
-            <label for="inv_color">Color</label>
-            <input type="text" id="invColor" name="inv_color" required>
+        <form action="/inv/addVehicle" method="post">
+            <%- selection %><br>
+            <label for="inv_make">Make</label><br>
+            <input type="text" id="inv_make" name="inv_make" placeholder="Min of 3 characters" required pattern=".{3,}" value="<%= locals.inv_make %>"><br>
+            <label for="inv_make">Model</label><br>
+            <input type="text" id="inv_model" name="inv_model" placeholder="Min of 3 characters" required pattern=".{3,}" value="<%= locals.inv_model %>"><br>
+            <label for="inv_description">Description</label><br>
+            <textarea id="inv_description" name="inv_description" rows="10"  cols="50"></textarea><br>
+            <label for="inv_image">Image Path</label><br>
+            <input type="text" id="inv_image" name="inv_image" value="/images/vehicles/no-image.png"><br>
+            <label for="inv_thumbnail">Image Thumbnail</label><br>
+            <input type="text" id="inv_thumbnail" name="inv_thumbnail" value="/images/vehicles/no-image.png"><br>
+            <label for="inv_price">Price</label><br>
+            <input type="text" id="inv_price" name="inv_price" required value="<%= locals.inv_price %>"><br>
+            <label for="inv_year">Year</label><br>
+            <input type="text" id="inv_year" name="inv_year" required value="<%= locals.inv_year %>"><br>
+            <label for="inv_miles">Miles</label><br>
+            <input type="text" id="inv_miles" name="inv_miles" required value="<%= locals.inv_miles %>"><br>
+            <label for="inv_color">Color</label><br>
+            <input type="text" id="inv_color" name="inv_color" required value="<%= locals.inv_color %>"><br>
+            <input type="submit" value="Add Vehicle">
         </form> 
     </div>

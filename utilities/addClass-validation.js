@@ -9,18 +9,12 @@ const utilities = require(".")
 
 validate.addClassRules = () => {
     return [
-        body("classifiction_name")
+        body("classification_name")
         .trim()
         .escape()
         .notEmpty()
-        .isLength({min: 2})
-        .withMessage("Please provide a valid classification.")//message for error
-        .custom(async(classification_name) => {
-            const classificationExists = await inventoryModel.checkExistingClassification(classification_name)
-            if (classificationExists) {
-                throw new Error("Classification exists.")
-            }
-        }),
+        .isLength({min: 1})
+        .withMessage("Please provide a first name."),
     ]
 }
 

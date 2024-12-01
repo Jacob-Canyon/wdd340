@@ -255,17 +255,64 @@ footer{
   justify-content: center;
   font-family: var(--font-body);
   background-color: azure;
-  border: 4px, solid black;
-  margin-left: 30%;
-  margin-right: 30%;
+  border: 4px solid black;
+  margin-left: 20%;
+  margin-right: 20%;
   padding-top: 1rem;
   padding-bottom: 2rem;
+  width: auto;
 }
 
+.form input{
+  font-family: var(--font-body);
+  padding-left: 1rem;
+}
+
+input {
+  background-color: ivory;
+  border: none;
+  outline: 2px solid green;
+  border-radius: 5px;
+  margin-bottom: 1rem;
+}
+
+label {
+  padding-top: 1rem;
+  margin-top: 1rem;
+}
+
+input:invalid {
+  background-color: ivory;
+  border: none;
+  outline: 2px solid red;
+  border-radius: 5px;
+}
+
+
+/****************Management****************/
+.managediv {
+  margin-left: 4rem;
+  padding-left: 4rem;
+}
+
+.manageLink {
+  padding-top: 2rem;
+  padding-left: 4rem;
+}
+
+.notice{
+  font-family: var(--font-body);
+}
 
 /*******************moblie***********/
 
 @media only screen and (max-width: 968px) {
+
+  .formDiv{
+    width: auto;
+    margin-left: 2rem;
+    margin-right: 2rem;
+  }
 
 h1{
   text-align: center;
