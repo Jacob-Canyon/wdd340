@@ -290,14 +290,13 @@ input:invalid {
 
 
 /****************Management****************/
-.managediv {
-  margin-left: 4rem;
-  padding-left: 4rem;
+.manageDiv {
+  text-align: left;
+  margin-left: 2rem;
 }
 
 .manageLink {
-  padding-top: 2rem;
-  padding-left: 4rem;
+  padding-bottom: 1rem;
 }
 
 .notice{
@@ -307,6 +306,10 @@ input:invalid {
 /*******************moblie***********/
 
 @media only screen and (max-width: 968px) {
+
+  .manageDiv{
+    text-align: center;
+  }
 
   .formDiv{
     width: auto;
