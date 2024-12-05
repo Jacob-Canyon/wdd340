@@ -1,0 +1,16 @@
+<% if (title){ %>
+    <h1><%= title %></h1>
+    <%} else {
+        res.redifect('/')
+    } %>
+    <% if (errors) { %>
+        <ul class="notice">
+            <% errors.array().forEach(error => { %>
+                <li><%= error.msg %></li>
+            <%  }) %>
+        </ul>
+    <%} %>
+    <%- messages() %>
+    <div>
+        <h3>You are now logged in!</h3>
+    </div>

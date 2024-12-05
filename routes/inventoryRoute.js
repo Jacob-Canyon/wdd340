@@ -19,8 +19,13 @@ router.get("/error", utilities.handleErrors(errorController.buildHome))
 
 //Route for management
 router.get("/management", utilities.handleErrors(invController.buildManagement))
-
 router.get("/", utilities.handleErrors(invController.buildManagement))
+
+//Route for edit
+router.get("/edit/:inv_id", utilities.handleErrors(invController.buildEditView))
+
+//Route for selection in management
+router.get("/getInventory/:classification_id", utilities.handleErrors(invController.getInventoryJSON))
 
 //Add classification 
 router.get("/addClass",utilities.handleErrors(invController.buildAddClassification))
@@ -35,6 +40,13 @@ router.post("/addVehicle",
     vehicleValidate.addVehicleRules(),
     vehicleValidate.checkVehicleData,
     utilities.handleErrors(invController.addNewVehicle))
+
+//update inventory
+router.post("/update/", 
+    //vehicleValidate.updateRules,
+    //vehicleValidate.checkUpdateData(),
+    utilities.handleErrors(invController.updateInventory))
+
 
 
 module.exports = router

@@ -21,6 +21,7 @@ const inventoryRoute = require("./routes/inventoryRoute")
 const accountRoute = require("./routes/accountRoute")
 const errorController = require("./controllers/errorController")
 const bodyParser = require("body-parser")
+const cookieParser = require("cookie-parser")
 
 /****************************
  * Middleware
@@ -45,6 +46,10 @@ app.use(function(req, res, next){
   res.locals.messages = require('express-messages')(req, res)
   next()
 })
+
+app.use(cookieParser())
+// check token middleware
+app.use(utilities.checkJWTToken)
 
 /* ***********************
  *View Engine and Templates
