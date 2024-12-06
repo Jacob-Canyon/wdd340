@@ -28,5 +28,4 @@ router.get('/accountManagement',
     utilities.handleErrors(accountController.buildAccountManagement)
 )
 
-
 module.exports = router

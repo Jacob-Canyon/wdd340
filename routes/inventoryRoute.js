@@ -43,9 +43,17 @@ router.post("/addVehicle",
 
 //update inventory
 router.post("/update/", 
-    //vehicleValidate.updateRules,
-    //vehicleValidate.checkUpdateData(),
+    vehicleValidate.updateRules(),
+    vehicleValidate.checkUpdateData,
     utilities.handleErrors(invController.updateInventory))
+
+//delete inventory
+router.get("/delete/:inv_id",
+    utilities.handleErrors(invController.deleteView)
+)
+router.post("/delete", 
+    utilities.handleErrors(invController.deleteInv)
+)
 
 
 

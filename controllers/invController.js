@@ -1,3 +1,4 @@
+const { body } = require("express-validator")
 const invModel = require("../models/inventory-model")
 const utilities = require("../utilities/")
 
@@ -197,10 +198,32 @@ invCont.buildEditView = async function (req, res, next){
 
 invCont.updateInventory = async function(req, res, next) {
 
-  let selection = await utilities.getSelection()
   let nav = await utilities.getNav()
 
-  const {inv_id, inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color, classification_id} = req.body
+  const {  inv_id,
+    inv_make,
+    inv_model,
+    inv_year,
+    inv_description,
+    inv_image,
+    inv_thumbnail,
+    inv_price,
+    inv_miles,
+    inv_color,
+    classification_id,} = req.body
+
+    console.log( 
+      inv_id,
+      inv_make,
+      inv_model,
+      inv_year,
+      inv_description,
+      inv_image,
+      inv_thumbnail,
+      inv_price,
+      inv_miles,
+      inv_color,
+      classification_id,)
 
   const updateResult = await invModel.updateInventory(
     inv_id,
@@ -225,9 +248,10 @@ invCont.updateInventory = async function(req, res, next) {
     const itemName = `${inv_make} ${inv_model}`
     req.flash("notice", "Sorry, the insert failed.")
     res.status(501).render("inventory/edit-inventory", {
-      tile: "Edit" + itemName,
+      title: "Edit" + itemName,
       nav,
       selection,
+      errors: null,
       inv_id,
       inv_make,
       inv_model,
@@ -240,6 +264,53 @@ invCont.updateInventory = async function(req, res, next) {
       inv_color,
       classification_id
     })
+    }
+  }
+
+  /************************
+   * build delete view
+   ***********************/
+invCont.deleteView = async function (req, res, next){
+  const inv_id = parseInt(req.params.inv_id)
+  let nav = await utilities.getNav()
+  const arrayData = await invModel.getDetailById(inv_id)
+  const itemData = arrayData[0]
+  const itemName = `${itemData.inv_make} ${itemData.inv_model}`
+  res.render("./inventory/delete-confirm", {
+    title: "Delete " + itemName,
+    nav,
+    errors: null,
+    inv_id: itemData.inv_id,
+    inv_make: itemData.inv_make,
+    inv_model: itemData.inv_model,
+    inv_year: itemData.inv_year,
+    inv_price: itemData.inv_price,
+  })
+}
+
+
+/*****************************
+ * Delete inventory
+ ***************************/
+
+invCont.deleteInv = async function(req, res, next) {
+
+
+    inv_id = parseInt(req.body.inv_id)
+
+
+  const deleteResult = await invModel.deleteInventory(
+    inv_id, 
+  )
+
+  if(deleteResult){
+    req.flash("notice",`The item was successfully deleted.`)
+    res.redirect("/inv/")
+  } else {
+   
+    req.flash("notice", "Sorry, the insert failed.")
+    res.redirect(`inv/delete/${inv_id}`)
+  
     }
   }
 

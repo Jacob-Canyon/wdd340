@@ -79,17 +79,40 @@ async function addVehicle(classification_id, inv_make, inv_model, inv_year, inv_
 
 //update new inventory
 
-async function updateInventory(inv_id, inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color, classification_id ){
+async function updateInventory(  
+  inv_id,
+  inv_make, 
+  inv_model, 
+  inv_year, 
+  inv_description, 
+  inv_image, 
+  inv_thumbnail, 
+  inv_price, 
+  inv_miles, 
+  inv_color,
+  classification_id, ){
   try {
-      const sql = "UPDATE public.inventory SET inv_make = $1, inv_model = $2, inv_description = $3, inv_image = $4, inv_thumbnail = $5, inv_price = $6, inv_year = $7, inv_miles = $8, inv_color = $9, classification_id = $10 WHERE inv_id = $11 RETURNING *" 
-      const data = await pool.query(sql, [  
-        inv_make,
+      const sql = "UPDATE public.inventory SET inv_make = $1, inv_model = $2, inv_year = $3, inv_description = $4, inv_image = $5, inv_thumbnail = $6, inv_price = $7, inv_miles = $8, inv_color = $9, classification_id = $10 WHERE inv_id = $11 RETURNING *"
+      const testing = (sql, [inv_make,
         inv_model,
+        inv_year,
         inv_description,
         inv_image,
         inv_thumbnail,
         inv_price,
+        inv_miles,
+        inv_color,
+        classification_id,
+        inv_id])
+        console.log(testing)
+      const data = await pool.query(sql, [  
+        inv_make,
+        inv_model,
         inv_year,
+        inv_description,
+        inv_image,
+        inv_thumbnail,
+        inv_price,
         inv_miles,
         inv_color,
         classification_id,
@@ -101,4 +124,18 @@ async function updateInventory(inv_id, inv_make, inv_model, inv_year, inv_descri
   }
 }
 
-module.exports = {getClassifications, getInventoryByClassificationId, getDetailById, addClassification, checkExistingClassification, addVehicle, updateInventory}
+//delete inventory  model
+//update new inventory
+
+async function deleteInventory(  
+  inv_id ){
+  try {
+      const sql = "DELETE FROM inventory WHERE inv_id = $1"
+      const data = await pool.query(sql, [ inv_id ])
+      return data
+  } catch (error) {
+      console.error("DELETE: " + error)
+  }
+}
+
+module.exports = {getClassifications, getInventoryByClassificationId, getDetailById, addClassification, checkExistingClassification, addVehicle, updateInventory, deleteInventory}

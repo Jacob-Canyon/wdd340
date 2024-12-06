@@ -126,7 +126,7 @@ validate.checkUpdateData = async (req, res, next) => {
     next()
 }
 
-validate.UpdateRules = () => {
+validate.updateRules = () => {
 
     return [
          body("inv_make")
@@ -198,8 +198,6 @@ validate.UpdateRules = () => {
          .withMessage("Please select classification"),
 
          body("inv_id")
-         .trim()
-         .escape()
          .notEmpty()
 
  
