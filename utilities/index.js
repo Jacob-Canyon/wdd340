@@ -25,6 +25,7 @@ Util.getNav = async function (req, res, next) {
     return list
 }
 
+
 /***********************************
  * Build the classification view HTML
  ************************************/
@@ -131,6 +132,39 @@ Util.checkJWTToken = (req, res, next) => {
     }
 }
 
+/*************************************
+ * Middleware to check token for account type
+ *************************************/
+Util.checkJWTAccount = (req, res, next) => {
+    if (req.cookies.jwt) {
+        jwt.verify(
+            req.cookies.jwt,
+            process.env.ACCESS_TOKEN_SECRET,
+            function (err, accountData) {
+                if (err) {
+                    req.flash("Please log in")
+                    res.clearCookie("jwt")
+                    return res.redirect("/account/login")
+                }
+                if(accountData.account_type == "admin"){
+                    const accesLevel = 3
+                    res.locals.accountData = accountData
+                    res.locals.accesLevel = accesLevel
+                }
+                if(accountData.account_type == "cilent"){
+                    const accesLevel = 1
+                    res.locals.accountData = accountData
+                    res.locals.accesLevel = accesLevel
+                }
+
+                next()
+            })
+    } else {
+        next()
+    }
+}
+
+    
 /*************************
  * Check Login
  ***************************/
@@ -142,6 +176,19 @@ Util.checkLogin = (req, res, next) => {
         return res.redirect("/account/login")
     }
 }
+
+/*************************
+ * Check Access Level
+ ***************************/
+Util.checkAccess = (req, res, next) => {
+    if (res.locals.accesLevel > 1) {
+        next()
+    } else {
+        req.flash("notice", "Access Denied")
+        return res.redirect("/account/login")
+    }
+}
+
 
 
 module.exports = Util

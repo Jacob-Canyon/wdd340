@@ -1,6 +1,8 @@
 const { body } = require("express-validator")
 const invModel = require("../models/inventory-model")
 const utilities = require("../utilities/")
+const jwt = require("jsonwebtoken")
+require("dotenv").config()
 
 
 const invCont = {}

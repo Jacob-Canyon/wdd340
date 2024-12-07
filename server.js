@@ -50,6 +50,7 @@ app.use(function(req, res, next){
 app.use(cookieParser())
 // check token middleware
 app.use(utilities.checkJWTToken)
+app.use(utilities.checkJWTAccount)
 
 /* ***********************
  *View Engine and Templates
@@ -67,8 +68,8 @@ app.set("layout", "./layouts/layout")
 app.use(static)
 app.get("/", utilities.handleErrors(baseController.buildHome))
 //inventory route
-app.use("/inv/type", inventoryRoute)
-app.use("/inv", inventoryRoute)
+app.use("/inv/type",utilities.checkAccess, inventoryRoute)
+app.use("/inv",utilities.checkAccess, inventoryRoute)
 //details route,
 app.use("/inv/detail", inventoryRoute)
 //account route

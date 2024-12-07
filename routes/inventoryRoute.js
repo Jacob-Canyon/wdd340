@@ -18,37 +18,39 @@ router.get("/detail/:inv_id", utilities.handleErrors(invController.buildDetailBy
 router.get("/error", utilities.handleErrors(errorController.buildHome))
 
 //Route for management
-router.get("/management", utilities.handleErrors(invController.buildManagement))
+router.get("/management",utilities.checkAccess, utilities.checkAccess, utilities.handleErrors(invController.buildManagement))
 router.get("/", utilities.handleErrors(invController.buildManagement))
 
 //Route for edit
-router.get("/edit/:inv_id", utilities.handleErrors(invController.buildEditView))
+router.get("/edit/:inv_id",utilities.checkAccess, utilities.handleErrors(invController.buildEditView))
 
 //Route for selection in management
 router.get("/getInventory/:classification_id", utilities.handleErrors(invController.getInventoryJSON))
 
 //Add classification 
-router.get("/addClass",utilities.handleErrors(invController.buildAddClassification))
+router.get("/addClass",utilities.checkAccess, utilities.handleErrors(invController.buildAddClassification))
 router.post("/addClass",
     classValidate.addClassRules(),
     classValidate.checkClassData,
     utilities.handleErrors(invController.addClass))
 
 //Add vehicle
-router.get("/addVehicle", utilities.handleErrors(invController.buildAddVehicle))
-router.post("/addVehicle", 
+router.get("/addVehicle",utilities.checkAccess, utilities.handleErrors(invController.buildAddVehicle))
+router.post("/addVehicle",
     vehicleValidate.addVehicleRules(),
     vehicleValidate.checkVehicleData,
     utilities.handleErrors(invController.addNewVehicle))
 
 //update inventory
-router.post("/update/", 
+router.post("/update/",
+
     vehicleValidate.updateRules(),
     vehicleValidate.checkUpdateData,
     utilities.handleErrors(invController.updateInventory))
 
 //delete inventory
 router.get("/delete/:inv_id",
+    utilities.checkAccess,
     utilities.handleErrors(invController.deleteView)
 )
 router.post("/delete", 

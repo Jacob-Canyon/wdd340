@@ -8,6 +8,8 @@ const regValidate = require('../utilities/account-validation')
 router.get("/", utilities.checkLogin, utilities.handleErrors(accountController.buildAccountManagement))
 //Login
 router.get("/login", utilities.handleErrors(accountController.buildLogin))
+//logout get rid of cookie
+router.get("/logout", utilities.handleErrors(accountController.buildLogoutView))
 //register route
 router.get("/register", utilities.handleErrors(accountController.buildRegister))
 //Process the registration data

@@ -17,6 +17,24 @@ async function buildLogin(req, res, next) {
     })
 }
 
+/************************
+ * Deliver login view and delete cookie to logout.
+ ************************/
+async function buildLogoutView(req, res, next) {
+    res.clearCookie("jwt")
+    let nav = await utilities.getNav()
+    res.render("account/logout", {
+        title: "Logout",
+        nav,
+        errors: null,
+    })
+}
+
+
+
+/**********************
+ * build register view
+ ***********************/
 async function buildRegister(req, res, next) {
     let nav = await utilities.getNav()
     res.render("account/register", {
@@ -126,4 +144,4 @@ async function buildAccountManagement(req, res, next) {
     })
 }
 
-module.exports = { buildLogin, buildRegister, registerAccount, accountLogin, buildAccountManagement }
+module.exports = { buildLogin, buildRegister, registerAccount, accountLogin, buildAccountManagement, buildLogoutView }
