@@ -9,7 +9,7 @@ router.get("/", utilities.checkLogin, utilities.handleErrors(accountController.b
 //Login
 router.get("/login", utilities.handleErrors(accountController.buildLogin))
 //logout get rid of cookie
-router.get("/logout", utilities.handleErrors(accountController.buildLogoutView))
+router.get("/logout", utilities.handleErrors(accountController.Logout))
 //register route
 router.get("/register", utilities.handleErrors(accountController.buildRegister))
 //Process the registration data
@@ -29,5 +29,23 @@ router.get('/accountManagement',
     utilities.checkLogin,
     utilities.handleErrors(accountController.buildAccountManagement)
 )
+//accountUpdate 
+
+router.get('/accountUpdate',
+    utilities.checkLogin,
+    utilities.handleErrors(accountController.buildAccountUpdate)
+)
+
+router.post("/accountUpdate",
+    regValidate.accountUpdateRules(),
+    regValidate.checkUpdateData,
+    utilities.handleErrors(accountController.upDateAccount)
+)
+
+router.post("/passwordUpdate", 
+    regValidate.passwordUpdateRules(),
+    regValidate.checkPasswordData,
+    utilities.handleErrors(accountController.passwordUpdate)
+ )
 
 module.exports = router

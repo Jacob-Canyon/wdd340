@@ -76,6 +76,7 @@ app.use("/inv/detail", inventoryRoute)
 app.use("/account", accountRoute)
 app.use("/account/register", accountRoute)
 app.use("/account/accountManagement", accountRoute)
+app.use("/account/accountUpdate", accountRoute)
 //route for error link
 app.use("/error", utilities.handleErrors(errorController.buildHome))
 //error routes

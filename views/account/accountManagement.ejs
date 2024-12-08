@@ -11,6 +11,17 @@
         </ul>
     <%} %>
     <%- messages() %>
-    <div>
-        <h2>you are login complete</h2>
-    </div>
+   <div id="accountManagement">
+    <% if(locals.accessLevel > 1)
+    { %>
+        <h2>Welcome <%- accountData.account_firstname %></h2>
+        <h3>Inventory Management</h3>
+        <p><a href="/inv">Inventory Management</a></P>
+        <h3>Account Update</h3>
+        <p><a href="/account/accountUpdate"> Update Account Information</a></p>
+    <%} else {%>
+        <h2>Welcome <%- accountData.account_firstname %></h2>
+        <h3>Account Update</h3>
+        <p><a href="/account/accountUpdate"> Update Account Information</a></p>
+    <%}%>
+   </div>
