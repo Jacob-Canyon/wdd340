@@ -240,7 +240,7 @@ async function passwordUpdate(req, res) {
             "notice",
             `Congratulations Password Has been changed.`
         )
-        res.status(201).render("/account/login", {
+        res.status(201).render("account/login", {
             title: "Login",
             nav,
             errors: null,
