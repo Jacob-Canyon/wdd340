@@ -8,11 +8,13 @@
         { %>
             <a id="welcomeBasic" title="welcome" href="/account">Welcome <%- accountData.account_firstname %></a>
             <a id="logout" title="Logout" href="/account/logout">Logout</a>
+            <a id="favorites" title="favorites" href="inventory/favorites">Favorites</a>
             
         <%}
 
         else{ %>
             <a id="login" title="Click to log in" href="/account/login">My Account</a>
+            <a id="favorites" title="favorites" href="inventory/favorites">Favorites</a>
 
         <%} %>
     </div>
