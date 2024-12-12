@@ -13,10 +13,15 @@ const invCont = {}
 
 invCont.buildByClassificationId = async function (req, res, next) {
     const classification_id = req.params.classificationId
+    console.log(classification_id)
     const data = await invModel.getInventoryByClassificationId(classification_id)
+    console.log(data)
     const grid = await utilities.buildClassificationGrid(data)
     let nav = await utilities.getNav()
-   className = data[0].classification_name
+    if(data.length >0 ){
+   className = data[0].classification_name} else{
+    className = "Classification"
+   }
     res.render("./inventory/classification", {
       title: className + " vehicles",
       nav,
@@ -28,8 +33,11 @@ invCont.buildByClassificationId = async function (req, res, next) {
   
 invCont.buildDetailById = async function (req, res, next) {
   const inv_id = req.params.inv_id
+  const account_id = res.locals.accountData.account_id
+
+  console.log(account_id)
   const data = await invModel.getDetailById(inv_id)
-  const grid = await utilities.buildDetailGrid(data[0])
+  const grid = await utilities.buildDetailGrid(data[0], account_id)
   let nav = await utilities.getNav()
   const name = data[0].inv_make + ' ' + data[0].inv_model
   res.render("./inventory/detail", {
@@ -78,6 +86,7 @@ invCont.buildAddVehicle = async function (req, res, next){
  * add new classification
  ****************************/
 invCont.addClass = async function (req, res) {
+  console.log("function open")
   let nav = await utilities.getNav()
   const{classification_name} = req.body
 
@@ -278,31 +287,83 @@ invCont.deleteView = async function (req, res, next){
   })
 }
 
-
-/*****************************
- * Delete inventory
- ***************************/
-
-invCont.deleteInv = async function(req, res, next) {
-
-
-    inv_id = parseInt(req.body.inv_id)
-
-
-  const deleteResult = await invModel.deleteInventory(
-    inv_id, 
-  )
-
-  if(deleteResult){
-    req.flash("notice",`The item was successfully deleted.`)
-    res.redirect("/inv/")
-  } else {
-   
-    req.flash("notice", "Sorry, the insert failed.")
-    res.redirect(`inv/delete/${inv_id}`)
+/********************************
+ * Add to favorite reloads detail page
+ */
   
-    }
+invCont.addFavorite = async function (req, res, next) {
+  const inv_id = req.params.inv_id
+  const account_id = res.locals.accountData.account_id
+  const fav = await invModel.addToFavorites(inv_id, account_id)
+  if(fav){
+    req.flash("notice", "Added to Favorites.")
   }
+  const data = await invModel.getDetailById(inv_id)
+  const grid = await utilities.buildDetailGrid(data[0], account_id)
+  let nav = await utilities.getNav()
+  const name = data[0].inv_make + ' ' + data[0].inv_model
+  res.render("./inventory/detail", {
+      title: name,
+      nav,
+      grid,
+  })
+
+}
+
+/**********************
+ * build favorite list
+ ***********************/
+
+invCont.buildFavorite = async function (req, res, next) {
+  const account_id = res.locals.accountData.account_id
+  
+  const data = await invModel.getFavList(account_id)
+  const grid = await utilities.buildFavoriteGrid(data)
+  let nav = await utilities.getNav()
+  res.render("./inventory/favorite", {
+    title: "Favorites",
+    nav,
+    grid,
+  })
+
+}
+
+/********************************
+ * Add to favorite reloads detail page
+ */
+  
+invCont.buildDetailFavorite = async function (req, res, next) {
+  const inv_id = req.params.inv_id
+  const account_id = res.locals.accountData.account_id
+  const data = await invModel.getDetailById(inv_id)
+  const grid = await utilities.buildFavDetailGrid(data[0], account_id)
+  let nav = await utilities.getNav()
+  const name = data[0].inv_make + ' ' + data[0].inv_model
+  res.render("./inventory/detailFavorite", {
+      title: name,
+      nav,
+      grid,
+  })
+}
+
+/*************************************
+ * Add to favorite reloads detail page
+ ************************************/
+
+invCont.removeFavorite = async function (req, res, next){
+  const inv_id = req.params.inv_id
+  const account_id = res.locals.accountData.account_id
+  const remove = await invModel.removeFavorite(inv_id, account_id)
+  const data = await invModel.getFavList(account_id)
+  const grid = await utilities.buildFavoriteGrid(data)
+  let nav = await utilities.getNav()
+  res.render("./inventory/favorite", {
+    title: "Favorites",
+    nav,
+    grid,
+})
+}
+
 
 
 module.exports = invCont

@@ -6,11 +6,31 @@ const pool = require("../database/")
 
 async function registerAccount(account_firstname, account_lastname, account_email, account_password){
     try {
-        const sql = "INSERT INTO account (account_firstname, account_lastname, account_email, account_password, account_type) VALUES ($1, $2, $3, $4, 'client') RETURNING *" 
-        return await pool.query(sql, [account_firstname, account_lastname, account_email, account_password])
+        const sql = "INSERT INTO account (account_firstname, account_lastname, account_email, account_password, account_type) VALUES ($1, $2, $3, $4, 'client') RETURNING *"
+        
+        return await pool.query(sql, [account_firstname, account_lastname, account_email, account_password]) 
     } catch (error) {
         return error.message
     }
+}
+
+/******************************
+ * add favorite
+ *******************************/
+
+async function addFavortie(account_email) {
+
+    try{
+        const sql = "SELECT account_id FROM account WHERE account_email = $1"
+        const accountData = await pool.query(sql,[account_email])
+        
+        console.log(accountData.rows[0].account_id)
+        const account_id = accountData.rows[0].account_id
+        const favorite = "INSERT INTO favorite (fav_id) VALUES ($1)"
+        await pool.query(favorite, [account_id])
+} catch (error) {
+    return error.message
+}
 }
 
 /***************************
@@ -105,4 +125,4 @@ async function passwordUpdate(account_password, account_id){
 }
 
 
-module.exports = {registerAccount, checkExistingEmail, getAccountByEmail, getAccountById, updateAccount, checkDoubleEmail, passwordUpdate }
+module.exports = {registerAccount, checkExistingEmail, getAccountByEmail, getAccountById, updateAccount, checkDoubleEmail, passwordUpdate, addFavortie }

@@ -127,4 +127,53 @@ async function deleteInventory(
   }
 }
 
-module.exports = {getClassifications, getInventoryByClassificationId, getDetailById, addClassification, checkExistingClassification, addVehicle, updateInventory, deleteInventory}
+/**************************************
+ * Add vehicle into the favorite list
+ **************************************/
+
+async function addToFavorites(inv_id, account_id) {
+  try{
+    const sql = "UPDATE favorite SET fav_list = ARRAY_APPEND(fav_list, $1) WHERE fav_id = $2"
+    const data = await pool.query(sql,[inv_id, account_id])
+    return data
+  } catch (error) {
+    console.error("Add Favorite: " + error)
+
+  }
+}
+
+/**************************************
+ * Get vehicles in the favorite list
+ **************************************/
+
+async function getFavList(account_id){
+  
+  const sql = "SELECT fav_list FROM favorite WHERE fav_id = $1"
+  let favList = await pool.query(sql,[account_id])
+  
+  favList = favList.rows[0].fav_list
+  if (favList.length > 0){
+  const sql2 =  `SELECT * FROM inventory WHERE inv_id = ANY(ARRAY[${favList}])`
+  const data = await pool.query(sql2)
+  return data.rows
+} 
+else
+{return []}
+  
+}
+
+/**************************************
+ * Remove Vehicles from favorite list
+ **************************************/
+
+async function removeFavorite(inv_id, account_id) {
+  try{
+  const sql = "UPDATE favorite SET fav_list = ARRAY_REMOVE(fav_list, $1) WHERE fav_id = $2"
+  return await pool.query(sql,[inv_id, account_id])}
+  catch (error){
+    console.error("Remove Favorite: " + error)
+  }
+}
+
+
+module.exports = {getClassifications, getInventoryByClassificationId, getDetailById, addClassification, checkExistingClassification, addVehicle, updateInventory, deleteInventory, addToFavorites, getFavList, removeFavorite}

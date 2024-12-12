@@ -13,16 +13,17 @@ router.get("/type/:classificationId", utilities.handleErrors(invController.build
 
 //Route to build inventory by classification view
 router.get("/detail/:inv_id", utilities.handleErrors(invController.buildDetailById));
+router.post("/detail/:inv_id", utilities.handleErrors(invController.addFavorite));
 
 //Route for error link
 router.get("/error", utilities.handleErrors(errorController.buildHome))
 
 //Route for management
-router.get("/management",utilities.checkAccess, utilities.checkAccess, utilities.handleErrors(invController.buildManagement))
+router.get("/management",utilities.checkAccess, utilities.handleErrors(invController.buildManagement))
 router.get("/", utilities.handleErrors(invController.buildManagement))
 
 //Route for edit
-router.get("/edit/:inv_id",utilities.checkAccess, utilities.handleErrors(invController.buildEditView))
+router.get("/edit/:inv_id", utilities.handleErrors(invController.buildEditView))
 
 //Route for selection in management
 router.get("/getInventory/:classification_id", utilities.handleErrors(invController.getInventoryJSON))
@@ -56,6 +57,11 @@ router.get("/delete/:inv_id",
 router.post("/delete", 
     utilities.handleErrors(invController.deleteInv)
 )
+
+//favorite inventory
+router.get("/favorite", utilities.handleErrors(invController.buildFavorite))
+router.get("/favDetail/:inv_id", utilities.handleErrors(invController.buildDetailFavorite))
+router.post("/favDetail/:inv_id", utilities.handleErrors(invController.removeFavorite))
 
 
 

@@ -71,6 +71,7 @@ async function registerAccount(req, res) {
  
 
     if (regResult) {
+        await accountModel.addFavortie(account_email)
         req.flash(
             "notice",
             `Congratulations, you\'re registerd ${account_firstname}. Please log in.`
@@ -254,6 +255,8 @@ async function passwordUpdate(req, res) {
         })
     }
 }
+
+
 
 
 

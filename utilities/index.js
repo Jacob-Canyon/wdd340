@@ -30,7 +30,7 @@ Util.getNav = async function (req, res, next) {
  * Build the classification view HTML
  ************************************/
 Util.buildClassificationGrid = async function(data){
-    let grid
+    let grid = ""
     if(data.length >0){
         grid = '<ul id="inv-display">'
         data.forEach(vehicle => {
@@ -63,7 +63,7 @@ Util.buildClassificationGrid = async function(data){
  * Build detail grid view HTML
  ********************************************/
 
-Util.buildDetailGrid = async function(vehicle){
+Util.buildDetailGrid = async function(vehicle, account_id){
     let grid
         grid = '<div id="detail-display">'
         grid += '<img src="' + vehicle.inv_image +'" alt="Image of' + ' ' + vehicle.inv_make + ' ' + vehicle.inv_model + ' on CSE Motors">'
@@ -74,6 +74,13 @@ Util.buildDetailGrid = async function(vehicle){
         grid += '<li> Color: ' + vehicle.inv_color + '</li>'
         grid += '<li> Description: ' +vehicle.inv_description + '</li>'
         grid += '</ul>'
+        grid += '<form id="addFavForm" action="/inv/detail/' + vehicle.inv_id
+            + '" method="post">'
+        grid += '<input="hidden" name="account_id" value="'+ account_id +'">'
+        grid += '<input="hidden" name="inv_id" value="'+ vehicle.inv_id +'">'
+        grid += '<input id="submit" type="submit" value="Add to favorite">'
+        grid += '</form>'
+      
         grid += '</div>'
         return grid
 }
@@ -192,6 +199,65 @@ Util.checkAccess = (req, res, next) => {
         req.flash("notice", "Access Denied")
         return res.redirect("/account/login")
     }
+}
+
+/***********************************
+ * Build the favorite grid view HTML
+ ************************************/
+Util.buildFavoriteGrid = async function(data){
+    let grid = ""
+    if(data.length > 0){
+        grid = '<ul id="inv-display">'
+        data.forEach(vehicle => {
+            grid += '<li>'
+            grid += '<a class="classificationImg" href="../../inv/favDetail/' + vehicle.inv_id
+            + '" title="View ' + vehicle.inv_make + ' ' + vehicle.inv_model
+            + 'details"><img src="' + vehicle.inv_thumbnail 
+            +'" alt="Image of '+ vehicle.inv_make + ' ' + vehicle.inv_model 
+            +' on CSE Motors"></a>'
+            grid += '<div class="namePrice">'
+            grid += '<hr>'
+            grid += '<h2>'
+            grid += '<a href="../../inv/favDetail/' + vehicle.inv_id +'" title="View '
+            + vehicle.inv_make + ' ' + vehicle.inv_model + ' details">'
+            + vehicle.inv_make + ' ' + vehicle.inv_model + '</a>'
+            grid += '</h2>'
+            grid += '<span>$'
+            + new Intl.NumberFormat('en-US').format(vehicle.inv_price) + '</span>'
+            grid += '</div>'
+            grid += '</li>'
+        })
+        grid += '</ul>'
+    } else {
+        grid += '<p class="notice">Sorry, no matching favorites.</p>'
+    }
+    return grid
+}
+
+/*******************************************
+ * Build detail grid view HTML
+ ********************************************/
+
+Util.buildFavDetailGrid = async function(vehicle, account_id){
+    let grid
+        grid = '<div id="detail-display">'
+        grid += '<img src="' + vehicle.inv_image +'" alt="Image of' + ' ' + vehicle.inv_make + ' ' + vehicle.inv_model + ' on CSE Motors">'
+        grid += '<ul>'
+        grid += '<li> Price: $' + new Intl.NumberFormat('en-US').format(vehicle.inv_price) + '</li>'
+        grid += '<li> Miles: ' + vehicle.inv_miles.toLocaleString('en', {useGrouping:true}) + '</li>'
+        grid += '<li> Year: ' + vehicle.inv_year + '</li>'
+        grid += '<li> Color: ' + vehicle.inv_color + '</li>'
+        grid += '<li> Description: ' +vehicle.inv_description + '</li>'
+        grid += '</ul>'
+        grid += '<form id="addFavForm" action="/inv/favDetail/' + vehicle.inv_id
+            + '" method="post">'
+        grid += '<input="hidden" name="account_id" value="'+ account_id +'">'
+        grid += '<input="hidden" name="inv_id" value="'+ vehicle.inv_id +'">'
+        grid += '<input id="submit" type="submit" value="Remove favorite">'
+        grid += '</form>'
+      
+        grid += '</div>'
+        return grid
 }
 
 
