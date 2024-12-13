@@ -68,10 +68,10 @@ app.set("layout", "./layouts/layout")
 app.use(static)
 app.get("/", utilities.handleErrors(baseController.buildHome))
 //inventory route
-app.use("/inv/type",utilities.checkAccess, inventoryRoute)
-app.use("/inv",utilities.checkAccess, inventoryRoute)
+app.use("/inv/type", inventoryRoute)
+app.use("/inv", inventoryRoute)
 //details route,
-app.use("/inv/detail", inventoryRoute)
+app.use("/inv/detail",utilities.checkLogin, inventoryRoute)
 //account route
 app.use("/account", accountRoute)
 app.use("/account/register", accountRoute)

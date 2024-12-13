@@ -76,12 +76,34 @@ Util.buildDetailGrid = async function(vehicle, account_id){
         grid += '</ul>'
         grid += '<form id="addFavForm" action="/inv/detail/' + vehicle.inv_id
             + '" method="post">'
-        grid += '<input="hidden" name="account_id" value="'+ account_id +'">'
-        grid += '<input="hidden" name="inv_id" value="'+ vehicle.inv_id +'">'
-        grid += '<input id="submit" type="submit" value="Add to favorite">'
+        grid += '<input="hidden" name="account_id" value="'+ account_id +'"/>'
+        grid += '<input="hidden" name="inv_id" value="'+ vehicle.inv_id +'"/>'
+         grid += '<input id="submit" type="submit" value="Add favorite">'
         grid += '</form>'
-      
         grid += '</div>'
+
+
+        return grid
+}
+
+/***************************************
+ * no log in detail grid
+ */
+
+Util.buildNoLogDetailGrid = async function(vehicle){
+    let grid
+        grid = '<div id="detail-display">'
+        grid += '<img src="' + vehicle.inv_image +'" alt="Image of' + ' ' + vehicle.inv_make + ' ' + vehicle.inv_model + ' on CSE Motors">'
+        grid += '<ul>'
+        grid += '<li> Price: $' + new Intl.NumberFormat('en-US').format(vehicle.inv_price) + '</li>'
+        grid += '<li> Miles: ' + vehicle.inv_miles.toLocaleString('en', {useGrouping:true}) + '</li>'
+        grid += '<li> Year: ' + vehicle.inv_year + '</li>'
+        grid += '<li> Color: ' + vehicle.inv_color + '</li>'
+        grid += '<li> Description: ' +vehicle.inv_description + '</li>'
+        grid += '</ul>'
+        grid += '</div>'
+
+
         return grid
 }
 
@@ -239,6 +261,7 @@ Util.buildFavoriteGrid = async function(data){
  ********************************************/
 
 Util.buildFavDetailGrid = async function(vehicle, account_id){
+    
     let grid
         grid = '<div id="detail-display">'
         grid += '<img src="' + vehicle.inv_image +'" alt="Image of' + ' ' + vehicle.inv_make + ' ' + vehicle.inv_model + ' on CSE Motors">'
@@ -251,12 +274,13 @@ Util.buildFavDetailGrid = async function(vehicle, account_id){
         grid += '</ul>'
         grid += '<form id="addFavForm" action="/inv/favDetail/' + vehicle.inv_id
             + '" method="post">'
-        grid += '<input="hidden" name="account_id" value="'+ account_id +'">'
-        grid += '<input="hidden" name="inv_id" value="'+ vehicle.inv_id +'">'
+        grid += '<input="hidden" name="account_id" value="'+ account_id +'"/>'
+        grid += '<input="hidden" name="inv_id" value="'+ vehicle.inv_id +'"/>'
         grid += '<input id="submit" type="submit" value="Remove favorite">'
         grid += '</form>'
-      
         grid += '</div>'
+    
+
         return grid
 }
 
