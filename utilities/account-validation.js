@@ -191,6 +191,7 @@ validate.passwordUpdateRules  = () => {
 }
 
 
+
 /***********************************************************
  * Check password before update
  ***********************************************************/
@@ -230,6 +231,8 @@ validate.checkUpdateData = async (req, res, next) => {
     }
     next()
 }
+
+
 
 
 

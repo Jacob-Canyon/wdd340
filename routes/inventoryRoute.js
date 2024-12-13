@@ -7,13 +7,14 @@ const utilities = require("../utilities/")
 const classValidate = require("../utilities/addClass-validation")
 const vehicleValidate = require("../utilities/addVehicle-validation")
 const { addVehicle } = require("../models/inventory-model")
+const validate = require("../utilities/addVehicle-validation")
 
 //Route to build inventory by classification view
 router.get("/type/:classificationId", utilities.handleErrors(invController.buildByClassificationId));
 
 //Route to build inventory by classification view
 router.get("/detail/:inv_id", utilities.handleErrors(invController.buildDetailById));
-router.post("/detail/:inv_id", utilities.handleErrors(invController.addFavorite));
+router.post("/detail/:inv_id", validate.checkFavorites(), utilities.handleErrors(invController.addFavorite));
 
 //Route for error link
 router.get("/error", utilities.handleErrors(errorController.buildHome))
@@ -61,7 +62,7 @@ router.post("/delete",
 //favorite inventory
 router.get("/favorite", utilities.handleErrors(invController.buildFavorite))
 router.get("/favDetail/:inv_id", utilities.handleErrors(invController.buildDetailFavorite))
-router.post("/favDetail/:inv_id", utilities.handleErrors(invController.removeFavorite))
+router.post("/favDetail/:inv_id", validate.checkFavorites(), utilities.handleErrors(invController.removeFavorite))
 
 
 

@@ -205,4 +205,24 @@ validate.updateRules = () => {
  
  }
 
+ validate.checkFavorites  = () => {
+    return [
+        
+
+        // sure they are number 
+        body("account_id")
+            .trim()
+            .notEmpty()
+            .isNumeric()
+            .withMessage("InValid Selection"),
+
+            body("inv_id")
+            .trim()
+            .notEmpty()
+            .isNumeric()
+            .withMessage("InValid Selection"),
+    ]
+}
+
+
 module.exports = validate

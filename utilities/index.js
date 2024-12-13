@@ -76,8 +76,8 @@ Util.buildDetailGrid = async function(vehicle, account_id){
         grid += '</ul>'
         grid += '<form id="addFavForm" action="/inv/detail/' + vehicle.inv_id
             + '" method="post">'
-        grid += '<input="hidden" name="account_id" value="'+ account_id +'"/>'
-        grid += '<input="hidden" name="inv_id" value="'+ vehicle.inv_id +'"/>'
+        grid += '<input="hidden" name="account_id" value="'+ account_id +'" pattern="[0-9]"/>'
+        grid += '<input="hidden" name="inv_id" value="'+ vehicle.inv_id +'" pattern="[0-9]"/>'
          grid += '<input id="submit" type="submit" value="Add favorite">'
         grid += '</form>'
         grid += '</div>'
@@ -274,8 +274,8 @@ Util.buildFavDetailGrid = async function(vehicle, account_id){
         grid += '</ul>'
         grid += '<form id="addFavForm" action="/inv/favDetail/' + vehicle.inv_id
             + '" method="post">'
-        grid += '<input="hidden" name="account_id" value="'+ account_id +'"/>'
-        grid += '<input="hidden" name="inv_id" value="'+ vehicle.inv_id +'"/>'
+        grid += '<input="hidden" name="account_id" value="'+ account_id +'" pattern="[0-9]"/>'
+        grid += '<input="hidden" name="inv_id" value="'+ vehicle.inv_id +'" pattern="[0-9]"/>'
         grid += '<input id="submit" type="submit" value="Remove favorite">'
         grid += '</form>'
         grid += '</div>'
